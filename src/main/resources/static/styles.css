@@ -5,3 +5,30 @@ img.profile-icon {
 nav {
     margin-bottom: 50px;
 }
+
+.add-post-form {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.profile-font {
+    font-family: 'Lobster', cursive;
+    font-size: 100px;
+}
+
+.profile-font-col {
+    height: 150px;
+}
+
+nav > a.navbar-brand, div.jumbotron > h1, .my-posts-font, div.card-header {
+    font-family: 'Lobster', cursive;
+}
+
+div.card-header {
+    font-size: 25px;
+}
+
+.oops-font {
+    font-family: 'Lobster', cursive;
+    font-size: 100px;
+}

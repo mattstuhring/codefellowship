@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 
 @Controller
@@ -28,14 +29,12 @@ public class ApplicationUserController {
 
     @PostMapping("/users")
     public RedirectView createUser(String username, String password, String firstName, String lastName, String dateOfBirth, String bio) {
-        ApplicationUser newUser = new ApplicationUser(username, encoder.encode(password), firstName, lastName, dateOfBirth, bio);
+        ApplicationUser newUser = new ApplicationUser(username, encoder.encode(password), firstName, lastName, Date.valueOf(dateOfBirth), bio);
         applicationUserRepository.save(newUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new RedirectView("/myprofile");
     }
-
-
 
     @GetMapping("/login")
     public String getLoginPage(Principal p, Model m) {

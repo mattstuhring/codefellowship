@@ -3,11 +3,10 @@ package com.mattstuhring.codefellowship.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.sql.Date;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -19,12 +18,16 @@ public class ApplicationUser implements UserDetails {
     String password;
     String firstName;
     String lastName;
-    String dateOfBirth;
+    Date dateOfBirth;
     String bio;
+
+    // one-to-many annotations
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
+    List<Post> posts;
 
     public ApplicationUser() { }
 
-    public ApplicationUser(String username, String password, String firstName, String lastName, String dateOfBirth, String bio) {
+    public ApplicationUser(String username, String password, String firstName, String lastName, Date dateOfBirth, String bio) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -58,6 +61,10 @@ public class ApplicationUser implements UserDetails {
         return null;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
     public long getId() {
         return this.id;
     }
@@ -78,7 +85,7 @@ public class ApplicationUser implements UserDetails {
         return this.lastName;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return this.dateOfBirth;
     }
 
