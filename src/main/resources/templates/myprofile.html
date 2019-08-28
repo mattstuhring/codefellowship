@@ -3,57 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--    <link rel="stylesheet" href="/styles.css">-->
+    <link rel="stylesheet" href="/styles.css">
 
     <title>Codefellowship</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Codefellowship</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" th:if="${user}">
-
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/myprofile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-            </ul>
-
-            <span class="navbar-text" th:text="'Welcome, ' + ${user.name}"></span>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent2" th:unless="${user}">
-            <ul class="navbar-nav mr-auto" >
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup">Signup</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div th:replace="fragments/nav :: nav"></div>
 
     <div class="container">
         <div class="row">
             <div class="col-sm-6 offset-sm-3">
-
                 <div class="card">
                     <div class="card-header bg-primary text-light">
                         My Profile
                     </div>
+                    <div class="text-center">
+                        <img src="/profile-icon.jpg" class="profile-icon" alt="...">
+                    </div>
                     <div class="card-body">
-                        
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Username</th>
+                                    <td><span class="font-weight-normal" th:text="${user.username}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Full Name</th>
+                                    <td><span class="font-weight-normal" th:text="${user.firstName}"></span> <span class="font-weight-normal" th:text="${user.lastName}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">DOB</th>
+                                    <td><span class="font-weight-normal" th:text="${user.dateOfBirth}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Bio</th>
+                                    <td><span class="font-weight-normal" th:text="${user.bio}"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>
