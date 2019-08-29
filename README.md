@@ -28,6 +28,14 @@ Allow users to log in to CodeFellowship and create posts.
 - A user’s posts should be visible on their profile page.
 - When a user is logged in, the app should display the user’s username on every page (probably in the heading).
 
+Ensure that users can’t perform SQL injection or HTML injection with their posts.
+- Allow users to follow other users. Following a user means that their posts show up in the logged-in user’s feed, where they can see what all of their followed users have posted recently.
+- Ensure there is some way (like a users index page) that a user can discover other users on the service.
+- On a user profile page that does NOT belong to the currently logged-in user, display a “Follow” button. When a user clicks that follow button, the logged-in user is now following the viewed-profile-page user.
+- note: this will require a self-join on ApplicationUsers.
+- A user can visit a url (like /feed) to view all of the posts from the users that they follow.
+- Each post should have a link to the user profile of the user who wrote the post.
+
 ## Run the app
 1. Navigate to project in the terminal
 2. ``` $ gradle bootRun ```
@@ -40,7 +48,13 @@ Allow users to log in to CodeFellowship and create posts.
 - /myprofile
 - /users
 - /users/{id}
+- /users/follow
 - /posts
+- /feed
 
 # Resources
+- Nic Paro
+- Jack Kinne
+- Renee Messick
+- Travis Cox
 - https://spring.io/guides/gs/testing-web/

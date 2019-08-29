@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <title>Codefellowship</title>
+</head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col profile-font-col text-center">
+            <h1 class="profile-font">User Profile</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+
+            <div class="text-center">
+                <img src="/profile-icon.jpg" class="profile-icon" alt="...">
+            </div>
+
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th scope="row">Username</th>
+                    <td><span class="font-weight-normal" th:text="${viewedUser.username}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Full Name</th>
+                    <td><span class="font-weight-normal" th:text="${viewedUser.firstName}"></span> <span class="font-weight-normal" th:text="${user.lastName}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">DOB</th>
+                    <td><span class="font-weight-normal" th:text="${viewedUser.dateOfBirth}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Bio</th>
+                    <td><span class="font-weight-normal" th:text="${viewedUser.bio}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1">
+            <h1 class="text-center my-posts-font">User Posts</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <ul class="list-group list-group-flush">
+                <li th:each="post : ${viewedUser.posts}" class="list-group-item list-group-item-action">
+                    <h5 th:text="${post.createdAt}"></h5>
+                    <p><span th:text="${post.body}"></span></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+</html>

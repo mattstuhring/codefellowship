@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -24,6 +25,22 @@ public class ApplicationUser implements UserDetails {
     // one-to-many annotations
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     List<Post> posts;
+
+    @ManyToMany
+    @JoinTable(
+        // name is potato
+        name="application_user_follow",
+        // join columns: column where I find my own ID
+        joinColumns = { @JoinColumn(name="primaryUser") },
+        // inverse: column where I find someone else's ID
+        inverseJoinColumns = { @JoinColumn(name="followingUser") }
+    )
+
+    Set<ApplicationUser> following;
+
+    @ManyToMany(mappedBy = "following")
+    Set<ApplicationUser> followers;
+
 
     public ApplicationUser() { }
 
@@ -63,6 +80,14 @@ public class ApplicationUser implements UserDetails {
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public void addFollowing(ApplicationUser followingUser) {
+        following.add(followingUser);
+    }
+
+    public Set<ApplicationUser> getFollowingUsers() {
+        return this.following;
     }
 
     public long getId() {
