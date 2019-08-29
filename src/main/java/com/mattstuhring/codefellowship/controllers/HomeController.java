@@ -26,4 +26,30 @@ public class HomeController {
         m.addAttribute("user", appUser);
         return "home";
     }
+
+    @GetMapping("/login")
+    public String getLoginPage(Principal p, Model m) {
+        ApplicationUser appUser = null;
+
+        if (p != null) {
+            appUser = applicationUserRepository.findByUsername(p.getName());
+        }
+
+        m.addAttribute("user", appUser);
+
+        return "login";
+    }
+
+    @GetMapping("/signup")
+    public String getSignupPage(Principal p, Model m) {
+        ApplicationUser appUser = null;
+
+        if (p != null) {
+            appUser = applicationUserRepository.findByUsername(p.getName());
+        }
+
+        m.addAttribute("user", appUser);
+
+        return "signup";
+    }
 }

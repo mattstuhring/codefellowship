@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class PostController {
@@ -42,5 +43,20 @@ public class PostController {
         postRepository.save(post);
 
         return new RedirectView("/posts");
+    }
+
+    @GetMapping("/feed")
+    public String getFollowingUsersPosts(Principal p, Model m) {
+        ApplicationUser appUser = null;
+
+        if (p != null) {
+            appUser = applicationUserRepository.findByUsername(p.getName());
+        }
+        Set<ApplicationUser> appUsers = appUser.getFollowingUsers();
+
+        m.addAttribute("user", appUser);
+        m.addAttribute("users", appUsers);
+
+        return "feed";
     }
 }

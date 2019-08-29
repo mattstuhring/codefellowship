@@ -2,6 +2,7 @@ package com.mattstuhring.codefellowship.controllers;
 
 import com.mattstuhring.codefellowship.models.ApplicationUser;
 import com.mattstuhring.codefellowship.models.ApplicationUserRepository;
+import com.mattstuhring.codefellowship.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ApplicationUserController {
@@ -36,35 +38,41 @@ public class ApplicationUserController {
         return new RedirectView("/myprofile");
     }
 
-    @GetMapping("/login")
-    public String getLoginPage(Principal p, Model m) {
-        ApplicationUser appUser = null;
 
-        if (p != null) {
-            appUser = applicationUserRepository.findByUsername(p.getName());
-        }
-
+    @GetMapping("/users")
+    public String getAllUsers(Principal p, Model m) {
+        ApplicationUser appUser = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("user", appUser);
 
-        return "login";
+        List<ApplicationUser> appUsers = applicationUserRepository.findAll();
+        m.addAttribute("allUsers", appUsers);
+
+        return "allUsers";
     }
 
-    @GetMapping("/signup")
-    public String getSignupPage(Principal p, Model m) {
-        ApplicationUser appUser = null;
 
-        if (p != null) {
-            appUser = applicationUserRepository.findByUsername(p.getName());
-        }
-
-        m.addAttribute("user", appUser);
-
-        return "signup";
+    @GetMapping("/users/{id}")
+    public String showOneUser(@PathVariable long id, Principal p, Model m) {
+        m.addAttribute("viewedUser", applicationUserRepository.findById(id).get());
+        m.addAttribute("user", applicationUserRepository.findByUsername(p.getName()));
+        return "userProfile";
     }
+
+
+    @PostMapping("/users/follow")
+    public RedirectView followUser(String id, Principal p) {
+        long followingAppUserId = Long.parseLong(id);
+
+        ApplicationUser appUser = applicationUserRepository.findByUsername(p.getName());
+        appUser.addFollowing(applicationUserRepository.findById(followingAppUserId).get());
+        applicationUserRepository.save(appUser);
+
+        return new RedirectView("/myprofile");
+    }
+
 
     @GetMapping("/myprofile")
     public String getProfilePage(Principal p, Model m) {
-
         ApplicationUser appUser = null;
 
         if (p != null) {
@@ -74,12 +82,5 @@ public class ApplicationUserController {
         m.addAttribute("user", appUser);
 
         return "myprofile";
-    }
-
-    @GetMapping("/users/{id}")
-    public String showOneUser(@PathVariable long id, Principal p, Model m) {
-        m.addAttribute("viewedUser", applicationUserRepository.findById(id).get());
-        m.addAttribute("userProfile", applicationUserRepository.findByUsername(p.getName()));
-        return "userProfile";
     }
 }

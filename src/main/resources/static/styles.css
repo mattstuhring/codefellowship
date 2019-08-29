@@ -25,7 +25,8 @@ nav > a.navbar-brand, div.jumbotron > h1, .my-posts-font, div.card-header {
 }
 
 div.card-header {
-    font-size: 25px;
+    text-align: center;
+    font-size: 45px;
 }
 
 .oops-font {
