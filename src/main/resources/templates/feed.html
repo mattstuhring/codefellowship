@@ -31,10 +31,9 @@
                 <ul class="list-group list-group-flush">
                     <span th:each="followUser : ${users}">
                         <li th:each="post : ${followUser.posts}" class="list-group-item list-group-item-action">
-                            <h4 th:text="${followUser.username}"></h4>
+                            <a th:href="'/users/' + ${followUser.id}"><h4 th:text="${followUser.username}"></h4></a>
                             <h5 th:text="${post.createdAt}"></h5>
                             <p><span th:text="${post.body}"></span></p>
-                            <a th:href="'/users/' + ${followUser.id}">Profile</a>
                         </li>
                     </span>
                 </ul>

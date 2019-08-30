@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ApplicationUserController {
@@ -44,6 +45,9 @@ public class ApplicationUserController {
         ApplicationUser appUser = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("user", appUser);
 
+        Set<ApplicationUser> followers = appUser.getFollowingUsers();
+        m.addAttribute("followers", followers);
+
         List<ApplicationUser> appUsers = applicationUserRepository.findAll();
         m.addAttribute("allUsers", appUsers);
 
@@ -67,7 +71,7 @@ public class ApplicationUserController {
         appUser.addFollowing(applicationUserRepository.findById(followingAppUserId).get());
         applicationUserRepository.save(appUser);
 
-        return new RedirectView("/myprofile");
+        return new RedirectView("/users");
     }
 
 
